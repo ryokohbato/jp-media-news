@@ -1,8 +1,8 @@
 import axios from "axios";
 
-import { Date2RFC3339Format } from "./data";
-import { postText } from "./slack";
-import { getKeys } from "./token";
+import { Date2RFC3339Format } from "./modules/data";
+import { postText } from "./modules/slack";
+import { getKeys } from "./modules/token";
 
 const argv = require("minimist")(process.argv.slice(2));
 
