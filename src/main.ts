@@ -14,14 +14,25 @@ const main = async () => {
   const date_hour = (argv["_"][0] as number);
   let duration = 0;
 
-  switch(date_hour) {
+  switch (date_hour) {
     case 8:
+      await postText("<@ryokohbato> 朝のニュースです", "#jp-media-news");
       duration = 8;
       break;
     case 12:
+      await postText("<@ryokohbato> お昼のニュースです", "#jp-media-news");
+      duration = 4;
+      break;
     case 16:
+      await postText("<@ryokohbato> 夕方のニュースです", "#jp-media-news");
+      duration = 4;
+      break;
     case 20:
+      await postText("<@ryokohbato> 夜のニュースです", "#jp-media-news");
+      duration = 4;
+      break;
     case 24:
+      await postText("<@ryokohbato> 深夜のニュースです", "#jp-media-news");
       duration = 4;
       break;
     default:
