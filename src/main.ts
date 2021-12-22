@@ -1,6 +1,5 @@
 import axios from "axios";
 
-import { Date2RFC3339Format } from "./modules/data";
 import { postText } from "./modules/slack";
 import { getKeys } from "./modules/token";
 
@@ -69,9 +68,11 @@ const main = async () => {
         result = await axios.get(
           `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${
             channels[key]
-          }&order=date&key=${(await getKeys()).youtube}&publishedAfter=${Date2RFC3339Format(
-            publishedLimitTime
-          )}&maxResults=50&pageToken=${pageToken}`
+          }&order=date&key=${
+            (
+              await getKeys()
+            ).youtube
+          }&publishedAfter=${publishedLimitTime.toISOString()}&maxResults=50&pageToken=${pageToken}`
         );
 
         pageToken = result.data.nextPageToken;
