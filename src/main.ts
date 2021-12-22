@@ -62,7 +62,9 @@ const main = async () => {
 
   for (const key in channels) {
     let pageToken = "";
-    while (true) {
+
+    // 次のページがない場合はレスポンスに入っていない
+    while (pageToken != null) {
       try {
         result = await axios.get(
           `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channels[key]}&order=date&key=${(
@@ -72,10 +74,7 @@ const main = async () => {
         );
 
         pageToken = result.data.nextPageToken;
-        // 次のページがない場合はレスポンスに入っていない
-        if (pageToken == null) {
-          break;
-        }
+        // 次のページがない場合は undefined になるのでループを抜ける
 
         items = [...items, ...result.data.items];
       } catch (error: any) {
