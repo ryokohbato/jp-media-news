@@ -38,9 +38,12 @@ const main = async () => {
       return;
   }
 
-  // TODO: このあたり、かなり雑なのでなんとかする
   const now = new Date();
-  const publishedLimitTime = new Date(now.getTime() - duration * 60 * 60 * 1000);
+  // 分以下を切り捨ててキリの良い時間にする
+  const published_StartTime = new Date(
+    now.getTime() - ((now.getMinutes() * 60 + now.getSeconds()) * 1000 + now.getMilliseconds())
+  );
+  const published_LimitTime = new Date(published_StartTime.getTime() - duration * 60 * 60 * 1000);
 
   let items: any[] = [];
   const channels: any[] = [
@@ -72,7 +75,7 @@ const main = async () => {
             (
               await getKeys()
             ).youtube
-          }&publishedAfter=${publishedLimitTime.toISOString()}&maxResults=50&pageToken=${pageToken}`
+          }&publishedAfter=${published_LimitTime.toISOString()}&maxResults=50&pageToken=${pageToken}`
         );
 
         pageToken = result.data.nextPageToken;
