@@ -30,7 +30,7 @@ const main = async () => {
       await postText("<@ryokohbato> :bridge_at_night: 夜のニュースです", "#jp-media-news");
       duration = 4;
       break;
-    case 24:
+    case 0:
       await postText("<@ryokohbato> :milky_way: 深夜のニュースです", "#jp-media-news");
       duration = 4;
       break;
