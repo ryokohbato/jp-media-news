@@ -46,7 +46,7 @@ const main = async () => {
   const published_LimitTime = new Date(published_StartTime.getTime() - duration * 60 * 60 * 1000);
 
   let items: any[] = [];
-  const channels: any[] = [
+  const channels = [
     // 並び順に意味はない
     "UCuTAXTexrhetbOe3zgskJBQ", // 日テレNEWS
     "UCGCZAYq5Xxojl_tSXcVJhiQ", // ANNnewsCH
@@ -99,19 +99,11 @@ const main = async () => {
     return;
   }
 
-  await Promise.all(
-    // 1秒間隔でSlackに投げる
-    (items as any[]).map((item, index) => {
-      new Promise((resolve) =>
-        setTimeout(async () => {
-          await postText(
-            `${item.snippet.title}\nhttps://www.youtube.com/watch?v=${item.id.videoId}`,
-            "#jp-media-news"
-          );
-          resolve;
-        }, index * 1000)
-      );
-    })
+  await postText(
+    `${((items as any[]).map((item) => {
+      return `• <https://www.youtube.com/watch?v=${item.id.videoId}|${item.snippet.title}>`;
+    })).join("\n")}`,
+    "#jp-media-news"
   );
 };
 
